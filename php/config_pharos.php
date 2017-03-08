@@ -1,8 +1,8 @@
 <?php
     $dbHost = "intdb2";
     $dbDatabase = "pharos";
-//    $dbUser = "ireport";
-//    $dbPass = "~7QM#pd?X*";
+    $dbUser = "phreports";
+    $dbPass = "u50dIBzw1Qs6";
 
     // MSSQL database connection
     try {
