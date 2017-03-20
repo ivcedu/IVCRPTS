@@ -48,12 +48,94 @@ function getSearchUserInfo(php_file, user) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // get DB //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function db_getUserByUserEmail(UserEmail) {
+function db_getAdminByID(AdminID) {
     var result = new Array();
     $.ajax({
         type:"POST",
-        url:"php/db_getUserByUserEmail.php",
+        url:"php/db_getAdminByID.php",
+        data:{AdminID:AdminID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getAdminByEmail(AdminEmail) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getAdminByEmail.php",
+        data:{AdminEmail:AdminEmail},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getAdminListDataTable() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getAdminListDataTable.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getUserByID(UserID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getUserByID.php",
+        data:{UserID:UserID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getUserByEmail(UserEmail) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getUserByEmail.php",
         data:{UserEmail:UserEmail},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getUserByEmailActive(UserEmail) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getUserByEmailActive.php",
+        data:{UserEmail:UserEmail},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getUserListDataTable() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getUserListDataTable.php",
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -64,12 +146,26 @@ function db_getUserByUserEmail(UserEmail) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // insert DB ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function db_insertAdmin(Active, AdminName, AdminEmail, FullAccess) {
+function db_insertAdmin(Active, AdminName, AdminEmail) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertAdmin.php",
-        data:{Active:Active, AdminName:AdminName, AdminEmail:AdminEmail, FullAccess:FullAccess},
+        data:{Active:Active, AdminName:AdminName, AdminEmail:AdminEmail},
+        async: false,  
+        success:function(data) {
+            ResultID = JSON.parse(data);
+        }
+    });
+    return ResultID;
+}
+
+function db_insertUser(Active, UserName, UserEmail) {
+    var ResultID = "";
+    $.ajax({
+        type:"POST",
+        url:"php/db_insertUser.php",
+        data:{Active:Active, UserName:UserName, UserEmail:UserEmail},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -80,12 +176,26 @@ function db_insertAdmin(Active, AdminName, AdminEmail, FullAccess) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // update DB ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function db_updateAdminByID(AdminID, Active, AdminName, AdminEmail, FullAccess) {
+function db_updateAdminByID(AdminID, Active, AdminName, AdminEmail) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateAdminByID.php",
-        data:{AdminID:AdminID, Active:Active, AdminName:AdminName, AdminEmail:AdminEmail, FullAccess:FullAccess},
+        data:{AdminID:AdminID, Active:Active, AdminName:AdminName, AdminEmail:AdminEmail},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateUserByID(UserID, Active, UserName, UserEmail) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateUserByID.php",
+        data:{UserID:UserID, Active:Active, UserName:UserName, UserEmail:UserEmail},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -96,16 +206,116 @@ function db_updateAdminByID(AdminID, Active, AdminName, AdminEmail, FullAccess) 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // delete DB ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//function db_deleteAdmin(AdminID) {
-//    var Result = false;
-//    $.ajax({
-//        type:"POST",
-//        url:"php/db_deleteAdmin.php",
-//        data:{AdminID:AdminID},
-//        async: false,  
-//        success:function(data) {
-//            Result = JSON.parse(data);
-//        }
-//    });
-//    return Result;
-//}
+function db_deleteAdminByID(AdminID) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_deleteAdminByID.php",
+        data:{AdminID:AdminID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_deleteUserByID(UserID) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_deleteUserByID.php",
+        data:{UserID:UserID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// pharos DB reports ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function phar_getIVCTotalPagesCost(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCTotalPagesCost.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCTotalPagesCostDevice(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCTotalPagesCostDevice.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCTotalPagesCostRawData(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCTotalPagesCostRawData.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCFreeCharge(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCFreeCharge.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCFreeChargeDevice(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCFreeChargeDevice.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCFreeChargeRawData(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCFreeChargeRawData.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}

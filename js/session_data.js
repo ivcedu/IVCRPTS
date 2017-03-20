@@ -76,6 +76,40 @@ function isValidPhoneNumber(phoneNumber) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getCurrentFirstDayOfMonth() {
+    var cur_date = new Date();
+    var dt_firstDay = new Date(cur_date.getFullYear(), cur_date.getMonth(), 1);
+
+    var yrs = dt_firstDay.getFullYear();
+    var mon = dt_firstDay.getMonth() + 1;
+    var day = dt_firstDay.getDate();
+    
+    return mon + "/" + day + "/" + yrs;
+}
+
+function getCurrentLastDayOfMonth() {
+    var cur_date = new Date();
+    var dt_lastDay = new Date(cur_date.getFullYear(), cur_date.getMonth() + 1, 0);
+    
+    var yrs = dt_lastDay.getFullYear();
+    var mon = dt_lastDay.getMonth() + 1;
+    var day = dt_lastDay.getDate();
+    
+    return mon + "/" + day + "/" + yrs;
+}
+
+function getFistDayOfMothWithSetMonth(change_month) {
+    var cur_date = new Date();
+    cur_date.setMonth(cur_date.getMonth() + change_month);
+    var dt_firstDay = new Date(cur_date.getFullYear(), cur_date.getMonth(), 1);
+
+    var yrs = dt_firstDay.getFullYear();
+    var mon = dt_firstDay.getMonth() + 1;
+    var day = dt_firstDay.getDate();
+    
+    return mon + "/" + day + "/" + yrs;
+}
+
 function getToday() {
     var today = new Date();
     var day = today.getDate();
@@ -135,6 +169,21 @@ function convertDBDateToString(date_time) {
 
         return mon + "/" + day + "/" + yrs;
     }
+}
+
+function convertSQLDateTimeFormat(dt_date, dt_time) {
+    var yrs = dt_date.getFullYear();
+    var mon = dt_date.getMonth() + 1;
+    var day = dt_date.getDate();
+    
+    if (mon < 10) {
+        mon = '0' + mon;
+    }
+    if (day < 10) {
+        day = '0' + day;
+    }
+    
+    return yrs + "-" + mon + "-" + day  + " " + dt_time;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

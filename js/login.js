@@ -46,7 +46,7 @@ $(document).ready(function() {
         else {
             var login_error = loginInfo();
             if(login_error === "") {
-                window.open('home.html', '_self');
+                window.open('rptPharos.html', '_self');
             }
             else if (login_error === "Invalid Username or Password") {
                 $('#error_msg').html(login_error);
@@ -60,7 +60,7 @@ $(document).ready(function() {
         }
     });
     
-    $.backstretch(["images/ivcrpts_back_web_1.jpg"], {duration: 3000, fade: 750});
+    $.backstretch(["images/ivcrpts_back_web_2.jpg"], {duration: 3000, fade: 750});
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -102,7 +102,7 @@ function ireportValidation() {
 ////////////////////////////////////////////////////////////////////////////////
 function userAccessValidation(email) {
     var result = new Array();
-    result = db_getUserByUserEmail(email);  
+    result = db_getUserByEmailActive(email);  
     
     if (result.length === 1) {
         return "";

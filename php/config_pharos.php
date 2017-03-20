@@ -1,5 +1,5 @@
 <?php
-    $dbHost = "intdb2";
+    $dbHost = "iintdb2";
     $dbDatabase = "pharos";
     $dbUser = "phreports";
     $dbPass = "u50dIBzw1Qs6";
