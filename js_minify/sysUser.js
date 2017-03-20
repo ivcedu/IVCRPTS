@@ -54,25 +54,6 @@ $(document).ready(function() {
         return false;
     });
     
-    // modal user delete button click //////////////////////////////////////////
-    $('#mod_btn_user_delete').click(function() {
-        if (user_id === "") {
-            swal({title: "Error", text: "Application system error, cannot get UserID", type: "error"});
-            return false;
-        }
-        else {
-            if (!db_deleteUserByID(user_id)) {
-                $('#mod_user_setting').modal('hide');
-                var str_msg = "DB system error DELETE USER - UserID: " + user_id;
-                return dbSystemErrorHandling(str_msg);
-            }
-        }
-        
-        getUserList();
-        $('#mod_user_setting').modal('hide');
-        return false;
-    });
-    
     // modal user save button click ////////////////////////////////////////////
     $('#mod_btn_user_save').click(function() {
         var user_active = ($('#mod_user_active').is(':checked') ? true : false);

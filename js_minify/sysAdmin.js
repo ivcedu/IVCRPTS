@@ -54,25 +54,6 @@ $(document).ready(function() {
         return false;
     });
     
-    // modal admin delete button click //////////////////////////////////////////
-    $('#mod_btn_admin_delete').click(function() {
-        if (admin_id === "") {
-            swal({title: "Error", text: "Application system error, cannot get AdminID", type: "error"});
-            return false;
-        }
-        else {
-            if (!db_deleteAdminByID(admin_id)) {
-                $('#mod_admin_setting').modal('hide');
-                var str_msg = "DB system error DELETE ADMIN - AdminID: " + admin_id;
-                return dbSystemErrorHandling(str_msg);
-            }
-        }
-        
-        getAdminList();
-        $('#mod_admin_setting').modal('hide');
-        return false;
-    });
-    
     // modal admin save button click ////////////////////////////////////////////
     $('#mod_btn_admin_save').click(function() {
         var admin_active = ($('#mod_admin_active').is(':checked') ? true : false);

@@ -126,7 +126,7 @@ function getLoginInfo() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function isLoginAdmin() {
     var result = new Array();
-    result = db_getAdminByEmailActive(sessionStorage.getItem('ss_rpts_loginEmail'));
+    result = db_getAdminByEmail(sessionStorage.getItem('ss_rpts_loginEmail'));
     
     if (result.length === 1) {
         $('.menu-system-setting').attr("style", "display: block !important");

@@ -76,20 +76,6 @@ function db_getAdminByEmail(AdminEmail) {
     return result;
 }
 
-function db_getAdminByEmailActive(AdminEmail) {
-    var result = new Array();
-    $.ajax({
-        type:"POST",
-        url:"php/db_getAdminByEmailActive.php",
-        data:{AdminEmail:AdminEmail},
-        async: false,  
-        success:function(data) {
-            result = JSON.parse(data);
-        }
-    });
-    return result;
-}
-
 function db_getAdminListDataTable() {
     var result = new Array();
     $.ajax({
