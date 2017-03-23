@@ -67,7 +67,7 @@ $(document).ready(function() {
     });
     
     // jquery datatables initialize ////////////////////////////////////////////
-    ct_table = $('#tbl_ct_raw_data_list').DataTable({ responsive: true, paging: false, bInfo: false, searching: false, order: [[ 3, "desc" ]] });
+    ct_table = $('#tbl_ct_raw_data_list').DataTable({ responsive: true, paging: false, bInfo: false, searching: false, order: [[ 2, "desc" ]] });
 
     // datepicker
     $('#start_date').datepicker();
