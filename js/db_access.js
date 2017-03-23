@@ -333,3 +333,129 @@ function phar_getIVCFreeChargeRawData(StartDate, EndDate) {
     });
     return result;
 }
+
+function phar_getIVCStaffTotalPagesCost(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCStaffTotalPagesCost.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCStaffTotalPagesCostDevice(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCStaffTotalPagesCostDevice.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCStaffTotalPagesCostRawData(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCStaffTotalPagesCostRawData.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCStaffFreeCharge(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCStaffFreeCharge.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCStaffFreeChargeDevice(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCStaffFreeChargeDevice.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCStaffFreeChargeRawData(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCStaffFreeChargeRawData.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCProctorReleaseMonth(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCProctorReleaseMonth.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCProctorReleaseDevice(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCProctorReleaseDevice.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCProctorReleaseUser(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCProctorReleaseUser.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}

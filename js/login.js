@@ -46,7 +46,7 @@ $(document).ready(function() {
         else {
             var login_error = loginInfo();
             if(login_error === "") {
-                window.open('rptPharos.html', '_self');
+                window.open('home.html', '_self');
             }
             else if (login_error === "Invalid Username or Password") {
                 $('#error_msg').html(login_error);

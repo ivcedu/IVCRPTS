@@ -9,8 +9,8 @@
     $query_create_table = "CREATE TABLE #REPORTS (NumMonth int, RptMonth nvarchar(255), RptYear nvarchar(255), TotalPages int, TotalCost money)";
     $query_drop_table = "DROP TABLE #REPORTS";
     
-    $query_ivc_student = "INSERT INTO #REPORTS "
-                        . "SELECT MONTH(trns.[time]) AS num_month, "
+    $query_ivc_student = "INSERT INTO #REPORTS SELECT "
+                        . "MONTH(trns.[time]) AS num_month, "
                         . "LEFT(DATENAME(month, trns.[time]), 3) AS rpt_month, "
                         . "YEAR(trns.[time]) AS rpt_year, "
                         . "trns.qty AS TotalPages, "

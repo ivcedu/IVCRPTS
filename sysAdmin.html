@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>System Admin</title>
         <!-- External fonts -->
-        <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Montserrat:300,400,500,600,700"/>
+        <link rel="stylesheet" href="https://fonts.google.com/specimen/Montserrat:300,400,500,600,700"/>
         <!-- spark-1.1 node_modules packages css -->
         <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/ionicons/css/ionicons.min.css"/>
@@ -15,10 +15,10 @@
         <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/morris.js/morris.css"/>
         <!-- spark-1.1 vendor css -->
         <link rel="stylesheet" href="../spark-1.1/bootstrap3/assets/vendor/md-snackbars/md-snackbars.min.css"/>
-        <link rel="stylesheet" href="../spark-1.1/bootstrap3/assets/vendor/datatables/datatables.min.css"/>
         <!-- spark-1.1 theme css -->
         <link rel="stylesheet" href="../spark-1.1/bootstrap3/assets/css/spark.css"/>
         <!-- include css -->
+        <link rel="stylesheet" href="../include/DataTables-1.10.13/datatables.min.css"/>
         <link rel="stylesheet" href="../include/bootstrap-modal/css/bootstrap-modal.css"/>
         <link rel="stylesheet" href="../include/jquery-ui-themes-1.11.4/themes/flick/jquery-ui.min.css"/>
         <link rel="stylesheet" href="../include/iconic-1.9.0/font/css/iconic-bootstrap.css"/>
@@ -26,7 +26,6 @@
         <link rel="stylesheet" href="../include/iCheck/skins/square/green.css"/>
         <!-- application css -->
         <link rel="stylesheet" href="css/ivcrpts.css"/>
-        
     </head>
 
     <body class="">
@@ -40,7 +39,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand hidden-xs hidden-sm" href="#">
+                        <a class="navbar-brand hidden-xs hidden-sm" href="home.html">
                             <i class="ion ion-ios-pulse-strong" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -67,7 +66,7 @@
                                 <h1 class="page-title" id="pg_title"></h1>
                                 <h2 class="page-subtitle" id="pg_sub_title"></h2>
                             </div>
-                            <!-- reports date range and refresh button -->
+                            <!-- new administrator button -->
                             <div class="col-lg-6">
                                 <div class="col-md-4 pull-right">
                                     <button class="btn btn-block btn-success iconic-color-default" id="btn_new_admin"><i class="fa fa-user-plus"></i> New</button>
@@ -89,14 +88,21 @@
                                 <li class="visible-xs visible-sm">
                                     <a href="#" class="sidebar-close"><i class="ion ion-ios-arrow-left"></i></a>
                                 </li>
-                                <li class="iconic-color-default">
-                                    <a href="rptPharos.html"><i class="ion ion-ios-printer-outline"></i> <span class="nav-text">Pharos</span></a>
+                                <li>
+                                    <a class="nav-container" data-toggle="collapse" data-parent="#sidebar-stacked" href="#menu_pharos">
+                                        <i class="ion ion-ios-printer-outline"></i> <span class="nav-text">Pharos <span class="caret"></span></span>
+                                    </a>
+                                    <ul class="nav nav-pills nav-stacked collapse" id="menu_pharos">
+                                        <li class="iconic-color-default"><a href="rptPharStudent.html">Students</a></li>
+                                        <li class="iconic-color-default"><a href="rptPharEmployee.html">Employee</a></li>
+                                        <li class="iconic-color-default"><a href="rptPharProctor.html">Proctor</a></li>
+                                    </ul>
                                 </li>
-                                <li class="menu-system-setting">
+                                <li class="menu-system-setting active">
                                     <a class="nav-container" data-toggle="collapse" data-parent="#sidebar-stacked" href="#menu_system">
                                         <i class="ion ion-ios-cog-outline"></i> <span class="nav-text">System <span class="caret"></span></span>
                                     </a>
-                                    <ul class="nav nav-pills nav-stacked collapse in show" id="menu_system">
+                                    <ul class="nav nav-pills nav-stacked collapse in" id="menu_system">
                                         <li class="iconic-color-default active"><a href="sysAdmin.html">Administrator</a></li>
                                         <li class="iconic-color-default"><a href="sysUser.html">User</a></li>
                                     </ul>
@@ -186,10 +192,10 @@
         <script src="../spark-1.1/bootstrap3/assets/vendor/flot/jquery.flot.tooltip.min.js"></script>
         <script src="../spark-1.1/bootstrap3/assets/vendor/mark/jquery.mark.min.js"></script>
         <script src="../spark-1.1/bootstrap3/assets/vendor/md-snackbars/md-snackbars.min.js"></script>
-        <script src="../spark-1.1/bootstrap3/assets/vendor/datatables/datatables.min.js"></script> 
         <!-- spark-1.1 theme javascript -->
         <script src="../spark-1.1/bootstrap3/assets/js/spark.min.js"></script>
         <!-- include javascript -->
+        <script src="../include/DataTables-1.10.13/datatables.min.js"></script>
         <script src="../include/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
         <script src="../include/bootstrap-modal/js/bootstrap-modal.js"></script>
         <script src="../include/jquery-ui-1.11.4/js/jquery-ui.min.js"></script>
@@ -197,7 +203,6 @@
         <script src="../include/sweetalert/js/sweetalert.min.js"></script>
         <script src="../include/iCheck/icheck.min.js"></script>
         <!-- application javascript -->
-        
         <script src="js/sysAdmin.js"></script>
         <script src="js/session_data.js"></script>
         <script src="js/db_access.js"></script>

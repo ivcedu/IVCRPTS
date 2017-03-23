@@ -86,18 +86,12 @@ $(document).ready(function() {
         else if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_device") {
             drawMorrisBarChartTotalPagesCostDevice('chart_total_by_device', ct_device_data);
         }
-        else if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_raw_data") {
-
-        }
         
         if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_month") {
             drawMorrisBarChartFreeCharge('chart_free_by_month', cf_month_data);
         }
         else if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_device") {
             drawMorrisBarChartFreeChargeDevice('chart_free_by_device', cf_device_data);
-        }
-        else if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_raw_data") {
-
         }
         
         this.blur();
@@ -193,12 +187,6 @@ function pharos_getIVCTotalPagesCostDevice(start_date, end_date) {
     ct_cost = 0.00;
     
     for (var i = 0; i < result.length; i++) { 
-        var tmp1 = result[i]['TotalCost'];
-        var tmp2 = result[i]['TotalCost'].replace("$", "");
-        var tmp3 = Number(result[i]['TotalCost'].replace("$", ""));
-        var tmp4 = Number(tmp2);
-        
-        
         ct_pages += Number(result[i]['TotalPages']);
         ct_cost += Number(result[i]['TotalCost']);
         ct_device_data.push({ device: result[i]['Device'], tpages: Number(result[i]['TotalPages']), tcost: Number(result[i]['TotalCost']) });

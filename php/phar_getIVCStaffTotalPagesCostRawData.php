@@ -20,8 +20,11 @@
                         . "INNER JOIN [pharos].[dbo].[devices] AS devc ON trns.ref_id = devc.device_id "
                         . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
                         . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
-                        . "WHERE devc.[description] = 'IVC' AND prgp.print_group = 'IVC' "
+                        . "INNER JOIN [pharos].[dbo].[users] AS usrs ON trns.[user_id] = usrs.[user_id] "
+                        . "INNER JOIN [pharos].[dbo].[groups] AS grup ON usrs.group_id = grup.group_id "
+                        . "WHERE devc.[description] = 'IVC' AND prgp.print_group = 'IVCStaff' "
                         . "AND (ttyp.[type] = 'PR' OR ttyp.[type] = 'CP') "
+                        . "AND (grup.group_id = -7 OR grup.group_id = -6 OR grup.group_id = -5) "
                         . "AND trns.[time] BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_result = "SELECT Device, "

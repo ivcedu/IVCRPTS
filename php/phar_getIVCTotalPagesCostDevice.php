@@ -9,8 +9,8 @@
     $query_create_table = "CREATE TABLE #REPORTS (Device nvarchar(255), TotalPages int, TotalCost money)";
     $query_drop_table = "DROP TABLE #REPORTS";
     
-    $query_ivc_student = "INSERT INTO #REPORTS "
-                        . "SELECT devc.device AS DeviceName, "
+    $query_ivc_student = "INSERT INTO #REPORTS SELECT "
+                        . "devc.device AS DeviceName, "
                         . "trns.qty AS TotalPages, "
                         . "trns.amount AS TotalCost "
                         . "FROM [pharos].[dbo].[transactions] AS trns INNER JOIN [pharos].[dbo].[transaction_types] AS ttyp ON trns.ttype_id = ttyp.ttype_id "

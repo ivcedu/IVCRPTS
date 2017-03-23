@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Pharos Employee</title>
+        <!-- External fonts -->
+        <link rel="stylesheet" href="https://fonts.google.com/specimen/Montserrat:300,400,500,600,700"/>
+        <!-- spark-1.1 node_modules packages css -->
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/ionicons/css/ionicons.min.css"/>
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/summernote/dist/summernote.css"/>
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/node_modules/morris.js/morris.css"/>
+        <!-- spark-1.1 vendor css -->
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/assets/vendor/md-snackbars/md-snackbars.min.css"/>
+        <!-- spark-1.1 theme css -->
+        <link rel="stylesheet" href="../spark-1.1/bootstrap3/assets/css/spark.css"/>
+        <!-- include css -->
+        <link rel="stylesheet" href="../include/DataTables-1.10.13/datatables.min.css"/>
+        <link rel="stylesheet" href="../include/jquery-ui-themes-1.11.4/themes/flick/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="../include/iconic-1.9.0/font/css/iconic-bootstrap.css"/>
+        <link rel="stylesheet" href="../include/sweetalert/css/sweetalert.css"/>
+        <!-- application css -->
+        <link rel="stylesheet" href="css/ivcrpts.css"/>
+    </head>
+
+    <body class="">
+        <div id="wrapper">
+            <!-- top section navigation -->
+            <nav class="navbar navbar-spark nav-primary">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="sidebar-open visible-xs visible-sm">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand hidden-xs hidden-sm" href="home.html">
+                            <i class="ion ion-ios-pulse-strong" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <!-- display login name and logout -->
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id='login_user'></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" id="nav_logout"><i class="ion ion-log-out"></i> Sign out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- main section -->
+            <div id="content">
+                <header id="page-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- section header title and descriptions -->
+                            <div class="col-lg-6 page-title-wrapper">
+                                <h1 class="page-title" id="pg_title"></h1>
+                                <h2 class="page-subtitle" id="pg_sub_title"></h2>
+                            </div>
+                            <!-- reports date range and refresh button -->
+                            <div class="col-lg-6">
+                                <form class="row form-horizontal">
+                                    <label class="col-md-1 control-label" style="color: white;">Start:</label>
+                                    <div class="col-md-3">
+                                        <div class="input-group" data-provide="datepicker">
+                                            <input type="text" class="form-control" readonly id="start_date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-1 control-label" style="color: white;">End:</label>
+                                    <div class="col-md-3">
+                                        <div class="input-group" data-provide="datepicker">
+                                            <input type="text" class="form-control" readonly id="end_date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-block btn-success iconic-color-default" id="btn_refresh"><i class="fa fa-refresh"></i> Refresh</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                
+                <div id="page-body">
+                    <div class="container-fluid">
+                        <div id="page-sidebar" class="toggled sidebar">
+                            <nav class="sidebar-collapse hidden-xs hidden-sm">
+                                <i class="ion ion-ios-arrow-forward show-on-collapsed"></i>
+                                <i class="ion ion-ios-arrow-back hide-on-collapsed"></i>
+                            </nav>
+                            <!-- page body menu options -->
+                            <ul class="nav nav-pills nav-stacked" id="sidebar-stacked">
+                                <li class="visible-xs visible-sm">
+                                    <a href="#" class="sidebar-close"><i class="ion ion-ios-arrow-left"></i></a>
+                                </li>
+                                <li class="active">
+                                    <a class="nav-container" data-toggle="collapse" data-parent="#sidebar-stacked" href="#menu_pharos">
+                                        <i class="ion ion-ios-printer-outline"></i> <span class="nav-text">Pharos <span class="caret"></span></span>
+                                    </a>
+                                    <ul class="nav nav-pills nav-stacked collapse in" id="menu_pharos">
+                                        <li class="iconic-color-default"><a href="rptPharStudent.html">Students</a></li>
+                                        <li class="iconic-color-default active"><a href="rptPharEmployee.html">Employee</a></li>
+                                        <li class="iconic-color-default"><a href="rptPharProctor.html">Proctor</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-system-setting">
+                                    <a class="nav-container" data-toggle="collapse" data-parent="#sidebar-stacked" href="#menu_system">
+                                        <i class="ion ion-ios-cog-outline"></i> <span class="nav-text">System <span class="caret"></span></span>
+                                    </a>
+                                    <ul class="nav nav-pills nav-stacked collapse" id="menu_system">
+                                        <li class="iconic-color-default"><a href="sysAdmin.html">Administrator</a></li>
+                                        <li class="iconic-color-default"><a href="sysUser.html">User</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- page body main section -->
+                        <div id="page-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default widget">
+                                        <div class="panel-heading">
+                                            <div class="panel-controls">
+                                              <a href="#" class="widget-minify"><i class="fa fa-chevron-up"></i></a>
+                                            </div>
+                                            <h3 class="panel-title">IVC Employee Total Pages/Cost</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <ul class="nav nav-tabs nav-justified" id="ct_tabs">
+                                                    <li role="presentation" class="active" id="ct_tab_month">
+                                                        <a href="#chart_total_tab_month" role="tab" data-toggle="tab">By Month</a>
+                                                    </li>
+                                                    <li role="presentation" id="ct_tab_device">
+                                                        <a href="#chart_total_tab_device" role="tab" data-toggle="tab">By Devices</a>
+                                                    </li>
+                                                    <li role="presentation" id="ct_tab_raw_data">
+                                                        <a href="#chart_total_tab_raw_data" role="tab" data-toggle="tab">Raw Data</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade in active" id="chart_total_tab_month">
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-center" style="color: #006699;" id='ct_month_pages'></div>
+                                                        <div class="col-md-6 text-center" style="color: #993300;" id='ct_month_cost'></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div id="chart_total_by_month"></div>
+                                                    </div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="chart_total_tab_device">
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-center" style="color: #006699;" id='ct_device_pages'></div>
+                                                        <div class="col-md-6 text-center" style="color: #993300;" id='ct_device_cost'></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div id="chart_total_by_device"></div>
+                                                    </div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="chart_total_tab_raw_data">
+                                                    <table id="tbl_ct_raw_data_list" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Device</th>
+                                                                <th>BW Pages</th>
+                                                                <th>Color Pages</th>
+                                                                <th>Total Pages</th>
+                                                                <th>Total Cost</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbl_body">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default widget">
+                                        <div class="panel-heading">
+                                            <div class="panel-controls">
+                                              <a href="#" class="widget-minify"><i class="fa fa-chevron-up"></i></a>
+                                            </div>
+                                            <h3 class="panel-title">IVC Employee Free of Charge</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <ul class="nav nav-tabs nav-justified" id="cf_tabs">
+                                                    <li role="presentation" class="active" id="cf_tab_month">
+                                                        <a href="#chart_free_tab_month" role="tab" data-toggle="tab">By Month</a>
+                                                    </li>
+                                                    <li role="presentation" id="cf_tab_device">
+                                                        <a href="#chart_free_tab_device" role="tab" data-toggle="tab">By Devices</a>
+                                                    </li>
+                                                    <li role="presentation" id="cf_tab_raw_data">
+                                                        <a href="#chart_free_tab_raw_data" role="tab" data-toggle="tab">Raw Data</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade in active" id="chart_free_tab_month">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center" style="color: #009933;" id='cf_month_pages'></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div id="chart_free_by_month"></div>
+                                                    </div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="chart_free_tab_device">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center" style="color: #009933;" id='cf_device_pages'></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div id="chart_free_by_device"></div>
+                                                    </div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="chart_free_tab_raw_data">
+                                                    <table id="tbl_cf_raw_data_list" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Device</th>
+                                                                <th>BW Pages</th>
+                                                                <th>Color Pages</th>
+                                                                <th>Total Pages</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbl_body">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- page main footer -->
+                            <footer id="footer" class="text-center">
+                                <p>&copy; 2017 Irvine Valley College</p>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- spark-1.1 Loading bar -->
+        <script src="../spark-1.1/bootstrap3/node_modules/pace-progress/pace.min.js"></script>
+        <!-- spark-1.1 node_modules packages javascript -->
+        <script src="../spark-1.1/bootstrap3/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/tether/dist/js/tether.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/bxslider/dist/jquery.bxslider.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/moment/min/moment.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/morris.js/morris.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/node_modules/raphael/raphael.min.js"></script>
+        <!-- spark-1.1 Vendor javascript -->
+        <script src="../spark-1.1/bootstrap3/assets/vendor/mark/jquery.mark.min.js"></script>
+        <script src="../spark-1.1/bootstrap3/assets/vendor/md-snackbars/md-snackbars.min.js"></script>
+        <!-- spark-1.1 theme javascript -->
+        <script src="../spark-1.1/bootstrap3/assets/js/spark.min.js"></script>
+        <!-- include javascript -->
+        <script src="../include/DataTables-1.10.13/datatables.min.js"></script>
+        <script src="../include/jquery-ui-1.11.4/js/jquery-ui.min.js"></script>
+        <script src="../inspinia-2.5/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+        <script src="../include/jquery-ui-1.11.4/js/jquery-ui.min.js"></script>
+        <script src="../include/iconic-1.9.0/js/iconic.min.js"></script>
+        <script src="../include/sweetalert/js/sweetalert.min.js"></script>
+        <!-- application javascript -->
+        <script src="js/rptPharEmployee.js"></script>
+        <script src="js/session_data.js"></script>
+        <script src="js/db_access.js"></script>
+    </body>
+</html>
