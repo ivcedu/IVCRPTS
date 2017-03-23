@@ -39,10 +39,9 @@
     
     $query_get_result = "SELECT rept.Device, SUM(rept.Pages) AS TotalPages, SUM(rept.Cost) AS TotalCost "
                         . "FROM #REPORTS AS rept INNER JOIN [pharos].[dbo].[devices] AS devc ON rept.Device = devc.device "
-                        . "INNER JOIN [pharos].[dbo].[printers] AS prnt ON devc.device_id = prnt.printer_id "
-                        . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON prnt.printer_id = prgm.printer_id "
+                        . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
                         . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
-                        . "WHERE (prgp.print_group = 'IVC' OR prgp.print_group = 'SC') AND devc.[description] = 'IVC' "
+                        . "WHERE devc.[description] = 'IVC' AND prgp.print_group = 'IVC' "
                         . "GROUP BY rept.Device "
                         . "ORDER BY SUM(rept.Pages) DESC";
     
