@@ -100,7 +100,7 @@ $(document).ready(function() {
     
     // jquery datatables initialize ////////////////////////////////////////////
     ct_table = $('#tbl_ct_raw_data_list').DataTable({ responsive: true, paging: false, bInfo: false, searching: false, order: [[ 3, "desc" ]] });
-    cf_table = $('#tbl_cf_raw_data_list').DataTable({ responsive: true, paging: false, bInfo: false, searching: false, order: [[ 3, "desc" ]] });
+    cf_table = $('#tbl_cf_raw_data_list').DataTable({ responsive: true, paging: false, bInfo: false, searching: false, order: [[ 4, "desc" ]] });
 
     // datepicker
     $('#start_date').datepicker();

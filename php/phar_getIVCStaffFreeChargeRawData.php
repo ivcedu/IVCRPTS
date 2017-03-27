@@ -6,11 +6,12 @@
     
     $dbConn->setAttribute(constant('PDO::SQLSRV_ATTR_DIRECT_QUERY'), true);
     
-    $query_create_table = "CREATE TABLE #REPORTS (Device nvarchar(255), TotalPages int, ColorPages int)";
+    $query_create_table = "CREATE TABLE #REPORTS (Device nvarchar(255), UserName nvarchar(255), TotalPages int, ColorPages int)";
     $query_drop_table = "DROP TABLE #REPORTS";
     
     $query_ivc_student = "INSERT INTO #REPORTS SELECT "
                         . "devc.device AS DeviceName, "
+                        . "usrs.id AS UserName, "
                         . "trns.qty AS TotalPages, "
                         . "CASE WHEN trns.resource_id = 1 THEN prtn.num_color_pages ELSE cptn.num_color_pages END AS ColorPages "
                         . "FROM [pharos].[dbo].[transactions] AS trns INNER JOIN [pharos].[dbo].[transaction_types] AS ttyp ON trns.ttype_id = ttyp.ttype_id "
@@ -28,11 +29,12 @@
                         . "AND trns.[time] BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_result = "SELECT Device, "
+                        . "UserName, "
                         . "SUM(TotalPages) - SUM(ColorPages) AS BWPages, "
                         . "SUM(ColorPages) AS ColorPages, "
                         . "SUM(TotalPages) AS TotalPages "
                         . "FROM #REPORTS "
-                        . "GROUP BY Device "
+                        . "GROUP BY Device, UserName "
                         . "ORDER BY TotalPages DESC";
     
     $dbConn->query($query_create_table);
