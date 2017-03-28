@@ -114,7 +114,7 @@ function getLoginInfo() {
     $('#login_user').html(login_name + " <span class=\"caret\"></span>");
     
     $('#pg_title').html("IVC Pharos");
-    $('#pg_sub_title').html("IVC pharos employee printer/copier dashboard");
+    $('#pg_sub_title').html("IVC Employee Printer and Copier Dashboard");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

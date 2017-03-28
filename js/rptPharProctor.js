@@ -81,7 +81,7 @@ function getLoginInfo() {
     $('#login_user').html(login_name + " <span class=\"caret\"></span>");
     
     $('#pg_title').html("IVC Pharos");
-    $('#pg_sub_title').html("IVC pharos proctor release free of charge printer dashboard");
+    $('#pg_sub_title').html("IVC Proctors Release Free of Charge Printer Dashboard");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

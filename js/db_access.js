@@ -459,3 +459,45 @@ function phar_getIVCProctorReleaseUser(StartDate, EndDate) {
     });
     return result;
 }
+
+function phar_getIVCCostCenter(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCCostCenter.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCCostCenterUsers(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCCostCenterUsers.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function phar_getIVCCostCenterRawData(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/phar_getIVCCostCenterRawData.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
