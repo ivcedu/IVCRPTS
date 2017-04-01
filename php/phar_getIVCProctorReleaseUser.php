@@ -3,6 +3,7 @@
     
     $StartDate = filter_input(INPUT_POST, 'StartDate');
     $EndDate = filter_input(INPUT_POST, 'EndDate');
+    $College = filter_input(INPUT_POST, 'College');
     
     $dbConn->setAttribute(constant('PDO::SQLSRV_ATTR_DIRECT_QUERY'), true);
     
@@ -39,21 +40,50 @@
                             . "AND [message] LIKE '%, without charging%' "
                             . "AND [time] BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
-    $query_get_result = "SELECT rept.ProctorID, role.name AS RoleName, SUM(rept.Pages) AS TotalPages, '$' + convert(varchar, SUM(rept.Cost), 1) AS TotalCost "
-                        . "FROM #REPORTS AS rept INNER JOIN [pharos].[dbo].[devices] AS devc ON rept.Device = devc.device "
-                        . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
-                        . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
-                        . "INNER JOIN [pharos].[dbo].[users] AS usrs ON rept.ProctorID = usrs.id "
-                        . "INNER JOIN [pharos].[dbo].[role] AS role ON usrs.role_id = role.role_id "
-                        . "WHERE devc.[description] = 'IVC' AND prgp.print_group = 'IVC' "
-                        . "GROUP BY rept.ProctorID, role.name "
-                        . "ORDER BY SUM(rept.Pages) DESC";
+    $query_get_result_all = "SELECT rept.ProctorID, role.name AS RoleName, SUM(rept.Pages) AS TotalPages, '$' + convert(varchar, SUM(rept.Cost), 1) AS TotalCost "
+                            . "FROM #REPORTS AS rept INNER JOIN [pharos].[dbo].[devices] AS devc ON rept.Device = devc.device "
+                            . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
+                            . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
+                            . "INNER JOIN [pharos].[dbo].[users] AS usrs ON rept.ProctorID = usrs.id "
+                            . "INNER JOIN [pharos].[dbo].[role] AS role ON usrs.role_id = role.role_id "
+                            . "WHERE (devc.[description] = 'IVC' ANd prgp.print_group = 'IVC') "
+                            . "OR (devc.[description] = 'SC' ANd prgp.print_group = 'SC') "
+                            . "GROUP BY rept.ProctorID, role.name "
+                            . "ORDER BY SUM(rept.Pages) DESC";
+    
+    $query_get_result_ivc = "SELECT rept.ProctorID, role.name AS RoleName, SUM(rept.Pages) AS TotalPages, '$' + convert(varchar, SUM(rept.Cost), 1) AS TotalCost "
+                            . "FROM #REPORTS AS rept INNER JOIN [pharos].[dbo].[devices] AS devc ON rept.Device = devc.device "
+                            . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
+                            . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
+                            . "INNER JOIN [pharos].[dbo].[users] AS usrs ON rept.ProctorID = usrs.id "
+                            . "INNER JOIN [pharos].[dbo].[role] AS role ON usrs.role_id = role.role_id "
+                            . "WHERE devc.[description] = 'IVC' AND prgp.print_group = 'IVC' "
+                            . "GROUP BY rept.ProctorID, role.name "
+                            . "ORDER BY SUM(rept.Pages) DESC";
+    
+    $query_get_result_sc = "SELECT rept.ProctorID, role.name AS RoleName, SUM(rept.Pages) AS TotalPages, '$' + convert(varchar, SUM(rept.Cost), 1) AS TotalCost "
+                            . "FROM #REPORTS AS rept INNER JOIN [pharos].[dbo].[devices] AS devc ON rept.Device = devc.device "
+                            . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
+                            . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
+                            . "INNER JOIN [pharos].[dbo].[users] AS usrs ON rept.ProctorID = usrs.id "
+                            . "INNER JOIN [pharos].[dbo].[role] AS role ON usrs.role_id = role.role_id "
+                            . "WHERE devc.[description] = 'SC' AND prgp.print_group = 'SC' "
+                            . "GROUP BY rept.ProctorID, role.name "
+                            . "ORDER BY SUM(rept.Pages) DESC";
     
     $dbConn->query($query_create_table);
     $dbConn->query($query_ivc_proctor_1);
     $dbConn->query($query_ivc_proctor_2);
 
-    $cmd = $dbConn->prepare($query_get_result);
+    if ($College === "All") {
+        $cmd = $dbConn->prepare($query_get_result_all);
+    }
+    else if ($College === "IVC") {
+        $cmd = $dbConn->prepare($query_get_result_ivc);
+    }
+    else if ($College === "Saddleback") {
+        $cmd = $dbConn->prepare($query_get_result_sc);
+    }
     $cmd->execute(); 
     $data = $cmd->fetchAll();
     

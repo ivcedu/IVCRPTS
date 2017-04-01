@@ -27,12 +27,10 @@ window.onload = function() {
         getDefaultStartEndDate();
 
         dsps_TabByMonthSection($('#start_date').val(), $('#end_date').val());
-        drawBarChartJSByMonth();
-        
         dsps_TabByWeekDaySection($('#start_date').val(), $('#end_date').val());
-        drawBarChartJSByWeekDay();
-        
         dsps_TabRawDataSection($('#start_date').val(), $('#end_date').val());
+        
+        drawBarChartJSByMonth();
         
         dsps_StatusStatisticSection($('#start_date').val(), $('#end_date').val());
         drawPieChartJSStatusStatistic();
@@ -57,16 +55,24 @@ $(document).ready(function() {
         return false;
     });
     
-    
+    // total pages/cost tab click event ///////////////////////////////////////
+    $('#dashboard_tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        var target = $(e.target).attr("href");
+
+        if (target === "#tab_by_month_section") {
+            drawBarChartJSByMonth();
+        }
+        else if (target === "#tab_by_weekday_section") {
+            drawBarChartJSByWeekDay();
+        }
+        
+        return false;
+    });
     
     // refresh button click ///////////////////////////////////////////////////
     $('#btn_refresh').click(function() {
         dsps_TabByMonthSection($('#start_date').val(), $('#end_date').val());
-        drawBarChartJSByMonth();
-        
         dsps_TabByWeekDaySection($('#start_date').val(), $('#end_date').val());
-        drawBarChartJSByWeekDay();
-        
         dsps_TabRawDataSection($('#start_date').val(), $('#end_date').val());
         
         dsps_StatusStatisticSection($('#start_date').val(), $('#end_date').val());
@@ -74,6 +80,13 @@ $(document).ready(function() {
         
         dsps_StepNotCompletedSection($('#start_date').val(), $('#end_date').val());
         drawPieChartJSStepNotCompleted();
+        
+        if ($("ul#dashboard_tabs li.active").attr('id') === "dashboard_tab_by_month") {
+            drawBarChartJSByMonth();
+        }
+        else if ($("ul#dashboard_tabs li.active").attr('id') === "dashboard_tab_by_weekday") {
+            drawBarChartJSByWeekDay();
+        }
         
         this.blur();
         return false;

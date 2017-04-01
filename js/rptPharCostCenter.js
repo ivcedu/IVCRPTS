@@ -4,6 +4,7 @@ var rd_table;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
     if (sessionStorage.key(0) !== null) {
+        $('#spinner_loader').hide();
         getLoginInfo();
         isLoginAdmin();
         getDefaultStartEndDate();
@@ -31,10 +32,20 @@ $(document).ready(function() {
     
     // refresh button click ///////////////////////////////////////////////////
     $('#btn_refresh').click(function() {
-        pharos_getIVCCostCenter(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCCostCenterUsers(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCCostCenterRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+        emptyCostCenterTables();
         
+        $('#spinner_loader_img').addClass('preloader__spinner');
+        $('#spinner_loader').show();
+        
+        setTimeout(function() {
+            pharos_getIVCCostCenter(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+            pharos_getIVCCostCenterUsers(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+            pharos_getIVCCostCenterRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+            
+            $('#spinner_loader').hide();
+            $('#spinner_loader_img').removeClass('preloader__spinner');
+        }, 1000);
+
         this.blur();
         return false;
     });
@@ -94,6 +105,24 @@ function isLoginAdmin() {
 function getDefaultStartEndDate() {
     $('#start_date').datepicker( "setDate", getFistDayOfMothWithSetMonth(-6) );
     $('#end_date').datepicker( "setDate", getCurrentLastDayOfMonth() );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function emptyCostCenterTables() {
+    $('#cost_center_total_pages').html("Total Pages: ");
+    $('#cost_center_total_cost').html("Total Cost: ");
+    cc_table.clear();
+    cc_table.draw();
+    
+    $('#user_total_pages').html("Total Pages: ");
+    $('#user_total_cost').html("Total Cost: ");
+    ur_table.clear();
+    ur_table.draw();
+    
+    $('#raw_data_total_pages').html("Total Pages: ");
+    $('#raw_data_total_cost').html("Total Cost: ");
+    rd_table.clear();
+    rd_table.draw();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

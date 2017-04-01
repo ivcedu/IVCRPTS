@@ -3,6 +3,7 @@
     
     $StartDate = filter_input(INPUT_POST, 'StartDate');
     $EndDate = filter_input(INPUT_POST, 'EndDate');
+    $College = filter_input(INPUT_POST, 'College');
     
     $dbConn->setAttribute(constant('PDO::SQLSRV_ATTR_DIRECT_QUERY'), true);
     
@@ -25,13 +26,39 @@
                         . "AND (ttyp.[type] = 'PR' OR ttyp.[type] = 'CP') "
                         . "AND trns.[time] BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
+    $query_sc_student = "INSERT INTO #REPORTS SELECT "
+                        . "MONTH(trns.[time]) AS num_month, "
+                        . "LEFT(DATENAME(month, trns.[time]), 3) AS rpt_month, "
+                        . "YEAR(trns.[time]) AS rpt_year, "
+                        . "trns.qty AS TotalPages, "
+                        . "trns.amount AS TotalCost "
+                        . "FROM [pharos].[dbo].[transactions] AS trns INNER JOIN [pharos].[dbo].[transaction_types] AS ttyp ON trns.ttype_id = ttyp.ttype_id "
+                        . "LEFT JOIN [pharos].[dbo].[print_transactions] AS prtn ON trns.transaction_id = prtn.transaction_id "
+                        . "LEFT JOIN [pharos].[dbo].[copy_transactions] AS cptn ON trns.transaction_id = cptn.transaction_id "
+                        . "INNER JOIN [pharos].[dbo].[devices] AS devc ON trns.ref_id = devc.device_id "
+                        . "INNER JOIN [pharos].[dbo].[print_group_members] AS prgm ON devc.device_id = prgm.printer_id "
+                        . "INNER JOIN [pharos].[dbo].[print_groups] AS prgp ON prgm.print_group_id = prgp.print_group_id "
+                        . "WHERE devc.[description] = 'SC' AND prgp.print_group = 'SC' "
+                        . "AND (ttyp.[type] = 'PR' OR ttyp.[type] = 'CP') "
+                        . "AND trns.[time] BETWEEN '".$StartDate."' AND '".$EndDate."'";
+    
     $query_get_result = "SELECT RptMonth, RptYear, SUM(TotalPages) AS TotalPages, SUM(TotalCost)*-1 AS TotalCost "
                         . "FROM #REPORTS "
                         . "GROUP BY NumMonth, RptMonth, RptYear "
                         . "ORDER BY RptYear, NumMonth ASC";
     
     $dbConn->query($query_create_table);
-    $dbConn->query($query_ivc_student);
+    
+    if ($College === "All") {
+        $dbConn->query($query_ivc_student);
+        $dbConn->query($query_sc_student);
+    }
+    else if ($College === "IVC") {
+        $dbConn->query($query_ivc_student);
+    }
+    else if ($College === "Saddleback") {
+        $dbConn->query($query_sc_student);
+    }
 
     $cmd = $dbConn->prepare($query_get_result);
     $cmd->execute(); 

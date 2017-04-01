@@ -3,25 +3,36 @@ var ct_device_data;
 var cf_month_data;
 var cf_device_data;
 
-var ct_pages = 0;
-var ct_cost = 0.00;
-var cf_pages = 0;
-
 var ct_table;
 var cf_table;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
     if (sessionStorage.key(0) !== null) {
+        $('#spinner_loader').hide();
         getLoginInfo();
         isLoginAdmin();
         getDefaultStartEndDate();
+        setHeaderSectionTitle();
 
-        pharos_getIVCTotalPagesCost(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCTotalPagesCostDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCTotalPagesCostRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCFreeCharge(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCFreeChargeDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCFreeChargeRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+        pharos_getIVCTotalPagesCost(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                    convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                    $('#rpt_college').val());
+        pharos_getIVCTotalPagesCostDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+        pharos_getIVCTotalPagesCostRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+                                            
+        pharos_getIVCFreeCharge(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                $('#rpt_college').val());
+        pharos_getIVCFreeChargeDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                        convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                        $('#rpt_college').val());
+        pharos_getIVCFreeChargeRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                        convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                        $('#rpt_college').val());
 
         drawMorrisBarChartTotalPagesCost('chart_total_by_month', ct_month_data);
         drawMorrisBarChartFreeCharge('chart_free_by_month', cf_month_data);
@@ -47,10 +58,10 @@ $(document).ready(function() {
     $('#ct_tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         var target = $(e.target).attr("href");
 
-        if (target === "#chart_total_tab_month" && $('#chart_total_by_month').html() === "") {
+        if (target === "#chart_total_tab_month") {
             drawMorrisBarChartTotalPagesCost('chart_total_by_month', ct_month_data);
         }
-        else if (target === "#chart_total_tab_device" && $('#chart_total_by_device').html() === "") {
+        else if (target === "#chart_total_tab_device") {
             drawMorrisBarChartTotalPagesCostDevice('chart_total_by_device', ct_device_data);
         }
         
@@ -61,10 +72,10 @@ $(document).ready(function() {
     $('#cf_tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         var target = $(e.target).attr("href");
         
-        if (target === "#chart_free_tab_month" && $('#chart_free_by_month').html() === "") {
+        if (target === "#chart_free_tab_month") {
             drawMorrisBarChartFreeCharge('chart_free_by_month', cf_month_data);
         }
-        else if (target === "#chart_free_tab_device" && $('#chart_free_by_device').html() === "") {
+        else if (target === "#chart_free_tab_device") {
             drawMorrisBarChartFreeChargeDevice('chart_free_by_device', cf_device_data);
         }
         
@@ -73,26 +84,51 @@ $(document).ready(function() {
     
     // refresh button click ///////////////////////////////////////////////////
     $('#btn_refresh').click(function() {
-        pharos_getIVCTotalPagesCost(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));    
-        pharos_getIVCTotalPagesCostDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCTotalPagesCostRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCFreeCharge(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCFreeChargeDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCFreeChargeRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+        setHeaderSectionTitle();
+        emptyTotalPagesSection();
+        emptyFreeOfChargeSection();
         
-        if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_month") {
-            drawMorrisBarChartTotalPagesCost('chart_total_by_month', ct_month_data);
-        }
-        else if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_device") {
-            drawMorrisBarChartTotalPagesCostDevice('chart_total_by_device', ct_device_data);
-        }
+        $('#spinner_loader_img').addClass('preloader__spinner');
+        $('#spinner_loader').show();
         
-        if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_month") {
-            drawMorrisBarChartFreeCharge('chart_free_by_month', cf_month_data);
-        }
-        else if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_device") {
-            drawMorrisBarChartFreeChargeDevice('chart_free_by_device', cf_device_data);
-        }
+        setTimeout(function() { 
+            pharos_getIVCTotalPagesCost(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                    convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                    $('#rpt_college').val());
+            pharos_getIVCTotalPagesCostDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                                convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                                $('#rpt_college').val());
+            pharos_getIVCTotalPagesCostRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                                convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                                $('#rpt_college').val());
+
+            pharos_getIVCFreeCharge(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                    convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                    $('#rpt_college').val());
+            pharos_getIVCFreeChargeDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+            pharos_getIVCFreeChargeRawData(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+                                            
+            if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_month") {
+                drawMorrisBarChartTotalPagesCost('chart_total_by_month', ct_month_data);
+            }
+            else if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_device") {
+                drawMorrisBarChartTotalPagesCostDevice('chart_total_by_device', ct_device_data);
+            }
+
+            if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_month") {
+                drawMorrisBarChartFreeCharge('chart_free_by_month', cf_month_data);
+            }
+            else if ($("ul#cf_tabs li.active").attr('id') === "cf_tab_device") {
+                drawMorrisBarChartFreeChargeDevice('chart_free_by_device', cf_device_data);
+            }
+            
+            $('#spinner_loader').hide();
+            $('#spinner_loader_img').removeClass('preloader__spinner');
+        }, 1000);
         
         this.blur();
         return false;
@@ -114,7 +150,7 @@ function getLoginInfo() {
     $('#login_user').html(login_name + " <span class=\"caret\"></span>");
     
     $('#pg_title').html("Pharos");
-    $('#pg_sub_title').html("IVC Students Printer and Copier Dashboard");
+    $('#pg_sub_title').html("Pharos Students Printer and Copier Dashboard");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,25 +170,67 @@ function getDefaultStartEndDate() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCTotalPagesCost(start_date, end_date) {
+function emptyTotalPagesSection() {
+    $('#ct_month_pages').html("Total Pages: ");
+    $('#ct_month_cost').html("Total Cost: ");
+    $('#chart_total_by_month').empty();
+    
+    $('#ct_device_pages').html("Total Pages: ");
+    $('#ct_device_cost').html("Total Cost: ");
+    $('#chart_total_by_device').empty();
+    
+    ct_table.clear();
+    ct_table.draw();
+}
+
+function emptyFreeOfChargeSection() {
+    $('#cf_month_pages').html("Total Pages: ");
+    $('#chart_free_by_month').empty();
+    
+    $('#cf_device_pages').html("Total Pages: ");
+    $('#chart_free_by_device').empty();
+    
+    cf_table.clear();
+    cf_table.draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function setHeaderSectionTitle() {
+    if ($('#rpt_college').val() === "All") {
+        $('#ct_header_title').html("IVC/Saddleback Students Total Pages/Cost included all $0.00 and other unknown charges");
+        $('#cf_header_title').html("IVC/Saddleback Free of Charge");
+    }
+    else if ($('#rpt_college').val() === "IVC") {
+        $('#ct_header_title').html("IVC Students Total Pages/Cost included all $0.00 and other unknown charges");
+        $('#cf_header_title').html("IVC Free of Charge");
+    }
+    else if ($('#rpt_college').val() === "Saddleback") {
+        $('#ct_header_title').html("Saddleback Students Total Pages/Cost included all $0.00 and other unknown charges");
+        $('#cf_header_title').html("Saddleback Free of Charge");
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function pharos_getIVCTotalPagesCost(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCTotalPagesCost(start_date, end_date);
+    result = phar_getIVCTotalPagesCost(start_date, end_date, college);
     
     ct_month_data = [];
-    ct_pages = 0;
-    ct_cost = 0.00;
+    var ct_total_pages = 0;
+    var ct_total_cost = 0.00;
     
     for (var i = 0; i < result.length; i++) {    
-        ct_pages += Number(result[i]['TotalPages']);
-        ct_cost += Number(result[i]['TotalCost']);
+        ct_total_pages += Number(result[i]['TotalPages']);
+        ct_total_cost += Number(result[i]['TotalCost']);
         ct_month_data.push({ month: result[i]['RptMonth'] + ' ' + result[i]['RptYear'], tpages: Number(result[i]['TotalPages']), tcost: Number(result[i]['TotalCost']) });
     }
+    
+    $('#ct_month_pages').html("Total Pages: " + ct_total_pages);
+    $('#ct_month_cost').html("Total Cost: " + formatDollar(ct_total_cost, 2));
 }
 
 function drawMorrisBarChartTotalPagesCost(chart_section, chart_data) {
     $('#' + chart_section).empty();
-    $('#ct_month_pages').html("Total Pages: " + ct_pages);
-    $('#ct_month_cost').html("Total Cost: " + formatDollar(ct_cost, 2));
 
     Morris.Bar({
         element: chart_section,
@@ -178,25 +256,26 @@ function drawMorrisBarChartTotalPagesCost(chart_section, chart_data) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCTotalPagesCostDevice(start_date, end_date) {
+function pharos_getIVCTotalPagesCostDevice(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCTotalPagesCostDevice(start_date, end_date);
+    result = phar_getIVCTotalPagesCostDevice(start_date, end_date, college);
 
     ct_device_data = [];
-    ct_pages = 0;
-    ct_cost = 0.00;
+    var ct_device_pages = 0;
+    var ct_device_cost = 0.00;
     
     for (var i = 0; i < result.length; i++) { 
-        ct_pages += Number(result[i]['TotalPages']);
-        ct_cost += Number(result[i]['TotalCost']);
+        ct_device_pages += Number(result[i]['TotalPages']);
+        ct_device_cost += Number(result[i]['TotalCost']);
         ct_device_data.push({ device: result[i]['Device'], tpages: Number(result[i]['TotalPages']), tcost: Number(result[i]['TotalCost']) });
     }
+    
+    $('#ct_device_pages').html("Total Pages: " + ct_device_pages);
+    $('#ct_device_cost').html("Total Cost: " + formatDollar(ct_device_cost, 2));
 }
 
 function drawMorrisBarChartTotalPagesCostDevice(chart_section, chart_data) {   
     $('#' + chart_section).empty();
-    $('#ct_device_pages').html("Total Pages: " + ct_pages);
-    $('#ct_device_cost').html("Total Cost: " + formatDollar(ct_cost, 2));
 
     Morris.Bar({
         element: chart_section,
@@ -222,23 +301,24 @@ function drawMorrisBarChartTotalPagesCostDevice(chart_section, chart_data) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCFreeCharge(start_date, end_date) {
+function pharos_getIVCFreeCharge(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCFreeCharge(start_date, end_date);
+    result = phar_getIVCFreeCharge(start_date, end_date, college);
     
     cf_month_data = [];
-    cf_pages = 0;
+    var cf_total_pages = 0;
 
     for (var i = 0; i < result.length; i++) {  
-        cf_pages += Number(result[i]['TotalPages']);
+        cf_total_pages += Number(result[i]['TotalPages']);
         cf_month_data.push({ month: result[i]['RptMonth'] + ' ' + result[i]['RptYear'], tpages: Number(result[i]['TotalPages']) });
     }
+    
+    $('#cf_month_pages').html("Total Pages: " + cf_total_pages);
 }
 
 function drawMorrisBarChartFreeCharge(chart_section, chart_data) {
     $('#' + chart_section).empty();
-    $('#cf_month_pages').html("Total Pages: " + cf_pages);
-
+    
     Morris.Bar({
         element: chart_section,
         data: chart_data,
@@ -256,22 +336,23 @@ function drawMorrisBarChartFreeCharge(chart_section, chart_data) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCFreeChargeDevice(start_date, end_date) {
+function pharos_getIVCFreeChargeDevice(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCFreeChargeDevice(start_date, end_date);
+    result = phar_getIVCFreeChargeDevice(start_date, end_date, college);
 
     cf_device_data = [];
-    cf_pages = 0;
+    var cf_device_pages = 0;
 
     for (var i = 0; i < result.length; i++) {  
-        cf_pages += Number(result[i]['TotalPages']);
+        cf_device_pages += Number(result[i]['TotalPages']);
         cf_device_data.push({ device: result[i]['Device'], tpages: Number(result[i]['TotalPages']) });
     }
+    
+    $('#cf_device_pages').html("Total Pages: " + cf_device_pages);
 }
 
 function drawMorrisBarChartFreeChargeDevice(chart_section, chart_data) {
     $('#' + chart_section).empty();
-    $('#cf_device_pages').html("Total Pages: " + cf_pages);
 
     Morris.Bar({
         element: chart_section,
@@ -290,17 +371,17 @@ function drawMorrisBarChartFreeChargeDevice(chart_section, chart_data) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCTotalPagesCostRawData(start_date, end_date) {
+function pharos_getIVCTotalPagesCostRawData(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCTotalPagesCostRawData(start_date, end_date);
+    result = phar_getIVCTotalPagesCostRawData(start_date, end_date, college);
     
     ct_table.clear();
     ct_table.rows.add(result).draw();
 }
 
-function pharos_getIVCFreeChargeRawData(start_date, end_date) {
+function pharos_getIVCFreeChargeRawData(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCFreeChargeRawData(start_date, end_date);
+    result = phar_getIVCFreeChargeRawData(start_date, end_date, college);
     
     cf_table.clear();
     cf_table.rows.add(result).draw();

@@ -1,20 +1,25 @@
 var ct_month_data;
 var ct_device_data;
 
-var ct_pages = 0;
-var ct_cost = 0.00;
-
 var ct_table;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
     if (sessionStorage.key(0) !== null) {
+        $('#spinner_loader').hide();
         getLoginInfo();
         isLoginAdmin();
         getDefaultStartEndDate();
+        setHeaderSectionTitle();
 
-        pharos_getIVCProctorReleaseMonth(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCProctorReleaseDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCProctorReleaseUser(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+        pharos_getIVCProctorReleaseMonth(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+        pharos_getIVCProctorReleaseDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+        pharos_getIVCProctorReleaseUser(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                        convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                        $('#rpt_college').val());
 
         drawMorrisBarChartProctorReleaseMonth('chart_total_by_month', ct_month_data);
     }
@@ -39,10 +44,10 @@ $(document).ready(function() {
     $('#ct_tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         var target = $(e.target).attr("href");
 
-        if (target === "#chart_total_tab_month" && $('#chart_total_by_month').html() === "") {
+        if (target === "#chart_total_tab_month") {
             drawMorrisBarChartProctorReleaseMonth('chart_total_by_month', ct_month_data);
         }
-        else if (target === "#chart_total_tab_device" && $('#chart_total_by_device').html() === "") {
+        else if (target === "#chart_total_tab_device") {
             drawMorrisBarChartProctorReleaseDevice('chart_total_by_device', ct_device_data);
         }
         
@@ -51,16 +56,33 @@ $(document).ready(function() {
     
     // refresh button click ///////////////////////////////////////////////////
     $('#btn_refresh').click(function() {
-        pharos_getIVCProctorReleaseMonth(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));    
-        pharos_getIVCProctorReleaseDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
-        pharos_getIVCProctorReleaseUser(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"));
+        setHeaderSectionTitle();
+        emptyTotalPagesSection();
         
-        if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_month") {
-            drawMorrisBarChartProctorReleaseMonth('chart_total_by_month', ct_month_data);
-        }
-        else if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_device") {
-            drawMorrisBarChartProctorReleaseDevice('chart_total_by_device', ct_device_data);
-        }
+        $('#spinner_loader_img').addClass('preloader__spinner');
+        $('#spinner_loader').show();
+        
+        setTimeout(function() {
+            pharos_getIVCProctorReleaseMonth(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                                convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                                $('#rpt_college').val());
+            pharos_getIVCProctorReleaseDevice(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                                convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                                $('#rpt_college').val());
+            pharos_getIVCProctorReleaseUser(convertSQLDateTimeFormat($('#start_date').datepicker("getDate"), "00:00:00.000"), 
+                                            convertSQLDateTimeFormat($('#end_date').datepicker("getDate"), "23:59:59.000"),
+                                            $('#rpt_college').val());
+
+            if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_month") {
+                drawMorrisBarChartProctorReleaseMonth('chart_total_by_month', ct_month_data);
+            }
+            else if ($("ul#ct_tabs li.active").attr('id') === "ct_tab_device") {
+                drawMorrisBarChartProctorReleaseDevice('chart_total_by_device', ct_device_data);
+            }
+            
+            $('#spinner_loader').hide();
+            $('#spinner_loader_img').removeClass('preloader__spinner');
+        }, 1000);
         
         this.blur();
         return false;
@@ -101,25 +123,53 @@ function getDefaultStartEndDate() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCProctorReleaseMonth(start_date, end_date) {
+function emptyTotalPagesSection() {
+    $('#ct_month_pages').html("Total Pages: ");
+    $('#ct_month_cost').html("Total Cost: ");
+    $('#chart_total_by_month').empty();
+    
+    $('#ct_device_pages').html("Total Pages: ");
+    $('#ct_device_cost').html("Total Cost: ");
+    $('#chart_total_by_device').empty();
+    
+    ct_table.clear();
+    ct_table.draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function setHeaderSectionTitle() {
+    if ($('#rpt_college').val() === "All") {
+        $('#ct_header_title').html("IVC/Saddleback Proctor Release Free of Charge Total Pages/Cost");
+    }
+    else if ($('#rpt_college').val() === "IVC") {
+        $('#ct_header_title').html("IVC Proctor Release Free of Charge Total Pages/Cost");
+    }
+    else if ($('#rpt_college').val() === "Saddleback") {
+        $('#ct_header_title').html("Saddleback Proctor Release Free of Charge Total Pages/Cost");
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function pharos_getIVCProctorReleaseMonth(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCProctorReleaseMonth(start_date, end_date);
+    result = phar_getIVCProctorReleaseMonth(start_date, end_date, college);
     
     ct_month_data = [];
-    ct_pages = 0;
-    ct_cost = 0.00;
+    var ct_total_pages = 0;
+    var ct_total_cost = 0.00;
     
     for (var i = 0; i < result.length; i++) {    
-        ct_pages += Number(result[i]['TotalPages']);
-        ct_cost += Number(result[i]['TotalCost']);
+        ct_total_pages += Number(result[i]['TotalPages']);
+        ct_total_cost += Number(result[i]['TotalCost']);
         ct_month_data.push({ month: result[i]['RptMonth'] + ' ' + result[i]['RptYear'], tpages: Number(result[i]['TotalPages']), tcost: Number(result[i]['TotalCost']) });
     }
+    
+    $('#ct_month_pages').html("Total Pages: " + ct_total_pages);
+    $('#ct_month_cost').html("Total Cost: " + formatDollar(ct_total_cost, 2));
 }
 
 function drawMorrisBarChartProctorReleaseMonth(chart_section, chart_data) {
     $('#' + chart_section).empty();
-    $('#ct_month_pages').html("Total Pages: " + ct_pages);
-    $('#ct_month_cost').html("Total Cost: " + formatDollar(ct_cost, 2));
 
     Morris.Bar({
         element: chart_section,
@@ -145,25 +195,26 @@ function drawMorrisBarChartProctorReleaseMonth(chart_section, chart_data) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCProctorReleaseDevice(start_date, end_date) {
+function pharos_getIVCProctorReleaseDevice(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCProctorReleaseDevice(start_date, end_date);
+    result = phar_getIVCProctorReleaseDevice(start_date, end_date, college);
 
     ct_device_data = [];
-    ct_pages = 0;
-    ct_cost = 0.00;
+    var ct_device_pages = 0;
+    var ct_device_cost = 0.00;
     
     for (var i = 0; i < result.length; i++) { 
-        ct_pages += Number(result[i]['TotalPages']);
-        ct_cost += Number(result[i]['TotalCost']);
+        ct_device_pages += Number(result[i]['TotalPages']);
+        ct_device_cost += Number(result[i]['TotalCost']);
         ct_device_data.push({ device: result[i]['Device'], tpages: Number(result[i]['TotalPages']), tcost: Number(result[i]['TotalCost']) });
     }
+    
+    $('#ct_device_pages').html("Total Pages: " + ct_device_pages);
+    $('#ct_device_cost').html("Total Cost: " + formatDollar(ct_device_cost, 2));
 }
 
 function drawMorrisBarChartProctorReleaseDevice(chart_section, chart_data) {   
     $('#' + chart_section).empty();
-    $('#ct_device_pages').html("Total Pages: " + ct_pages);
-    $('#ct_device_cost').html("Total Cost: " + formatDollar(ct_cost, 2));
 
     Morris.Bar({
         element: chart_section,
@@ -189,9 +240,9 @@ function drawMorrisBarChartProctorReleaseDevice(chart_section, chart_data) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function pharos_getIVCProctorReleaseUser(start_date, end_date) {
+function pharos_getIVCProctorReleaseUser(start_date, end_date, college) {
     var result = new Array(); 
-    result = phar_getIVCProctorReleaseUser(start_date, end_date);
+    result = phar_getIVCProctorReleaseUser(start_date, end_date, college);
     
     ct_table.clear();
     ct_table.rows.add(result).draw();

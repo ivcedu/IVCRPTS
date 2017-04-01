@@ -250,12 +250,12 @@ function db_deleteUserByID(UserID) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // pharos DB reports ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function phar_getIVCTotalPagesCost(StartDate, EndDate) {
+function phar_getIVCTotalPagesCost(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCTotalPagesCost.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -264,12 +264,12 @@ function phar_getIVCTotalPagesCost(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCTotalPagesCostDevice(StartDate, EndDate) {
+function phar_getIVCTotalPagesCostDevice(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCTotalPagesCostDevice.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -278,12 +278,12 @@ function phar_getIVCTotalPagesCostDevice(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCTotalPagesCostRawData(StartDate, EndDate) {
+function phar_getIVCTotalPagesCostRawData(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCTotalPagesCostRawData.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -292,12 +292,12 @@ function phar_getIVCTotalPagesCostRawData(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCFreeCharge(StartDate, EndDate) {
+function phar_getIVCFreeCharge(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCFreeCharge.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -306,12 +306,12 @@ function phar_getIVCFreeCharge(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCFreeChargeDevice(StartDate, EndDate) {
+function phar_getIVCFreeChargeDevice(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCFreeChargeDevice.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -320,12 +320,12 @@ function phar_getIVCFreeChargeDevice(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCFreeChargeRawData(StartDate, EndDate) {
+function phar_getIVCFreeChargeRawData(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCFreeChargeRawData.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -334,12 +334,12 @@ function phar_getIVCFreeChargeRawData(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCStaffTotalPagesCost(StartDate, EndDate) {
+function phar_getIVCStaffTotalPagesCost(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCStaffTotalPagesCost.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -348,12 +348,12 @@ function phar_getIVCStaffTotalPagesCost(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCStaffTotalPagesCostDevice(StartDate, EndDate) {
+function phar_getIVCStaffTotalPagesCostDevice(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCStaffTotalPagesCostDevice.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -362,12 +362,12 @@ function phar_getIVCStaffTotalPagesCostDevice(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCStaffTotalPagesCostRawData(StartDate, EndDate) {
+function phar_getIVCStaffTotalPagesCostRawData(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCStaffTotalPagesCostRawData.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -376,12 +376,12 @@ function phar_getIVCStaffTotalPagesCostRawData(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCStaffFreeCharge(StartDate, EndDate) {
+function phar_getIVCStaffFreeCharge(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCStaffFreeCharge.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -390,12 +390,12 @@ function phar_getIVCStaffFreeCharge(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCStaffFreeChargeDevice(StartDate, EndDate) {
+function phar_getIVCStaffFreeChargeDevice(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCStaffFreeChargeDevice.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -404,12 +404,12 @@ function phar_getIVCStaffFreeChargeDevice(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCStaffFreeChargeRawData(StartDate, EndDate) {
+function phar_getIVCStaffFreeChargeRawData(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCStaffFreeChargeRawData.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -418,12 +418,12 @@ function phar_getIVCStaffFreeChargeRawData(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCProctorReleaseMonth(StartDate, EndDate) {
+function phar_getIVCProctorReleaseMonth(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCProctorReleaseMonth.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -432,12 +432,12 @@ function phar_getIVCProctorReleaseMonth(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCProctorReleaseDevice(StartDate, EndDate) {
+function phar_getIVCProctorReleaseDevice(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCProctorReleaseDevice.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);
@@ -446,12 +446,12 @@ function phar_getIVCProctorReleaseDevice(StartDate, EndDate) {
     return result;
 }
 
-function phar_getIVCProctorReleaseUser(StartDate, EndDate) {
+function phar_getIVCProctorReleaseUser(StartDate, EndDate, College) {
     var result = new Array();
     $.ajax({
         type:"POST",
         url:"php/phar_getIVCProctorReleaseUser.php",
-        data:{StartDate:StartDate, EndDate:EndDate},
+        data:{StartDate:StartDate, EndDate:EndDate, College:College},
         async: false,  
         success:function(data) {
             result = JSON.parse(data);

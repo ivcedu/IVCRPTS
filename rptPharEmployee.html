@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="../include/sweetalert/css/sweetalert.css"/>
         <!-- application css -->
         <link rel="stylesheet" href="css/ivcrpts.css"/>
+        <link rel="stylesheet" href="css/spinner_loader.css"/>
     </head>
 
     <body class="">
@@ -67,21 +68,26 @@
                             <!-- reports date range and refresh button -->
                             <div class="col-lg-6">
                                 <form class="row form-horizontal">
-                                    <label class="col-md-1 control-label" style="color: white;">Start:</label>
+                                    <div class="col-md-3">
+                                        <select class="form-control" data-container="body" id="rpt_college">
+                                            <option style="color: black;">All</option>
+                                            <option style="color: black;">IVC</option>
+                                            <option style="color: black;">Saddleback</option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="input-group" data-provide="datepicker">
                                             <input type="text" class="form-control" readonly id="start_date">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
-                                    <label class="col-md-1 control-label" style="color: white;">End:</label>
                                     <div class="col-md-3">
                                         <div class="input-group" data-provide="datepicker">
                                             <input type="text" class="form-control" readonly id="end_date">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <button class="btn btn-block btn-success iconic-color-default" id="btn_refresh"><i class="fa fa-refresh"></i> Refresh</button>
                                     </div>
                                 </form>
@@ -134,6 +140,9 @@
                         </div>
                         <!-- page body main section -->
                         <div id="page-content">
+                            <div class="row" id="spinner_loader">
+                                <img src="images/spinner.svg" id="spinner_loader_img">
+                            </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel panel-default widget">
@@ -141,7 +150,7 @@
                                             <div class="panel-controls">
                                               <a href="#" class="widget-minify"><i class="fa fa-chevron-up"></i></a>
                                             </div>
-                                            <h3 class="panel-title">IVC Employee(IVC, Saddleback, District) Total Pages/Cost included all $0.00 and other unknown charges</h3>
+                                            <h3 class="panel-title" id="ct_header_title"></h3>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
@@ -203,7 +212,7 @@
                                             <div class="panel-controls">
                                               <a href="#" class="widget-minify"><i class="fa fa-chevron-up"></i></a>
                                             </div>
-                                            <h3 class="panel-title">IVC Employee Free of Charge</h3>
+                                            <h3 class="panel-title" id="cf_header_title"></h3>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
