@@ -34,6 +34,7 @@ $(document).ready(function() {
     $('#btn_refresh').click(function() {
         emptyCostCenterTables();
         
+        $('.panel').css('opacity', '0.5');
         $('#spinner_loader_img').addClass('preloader__spinner');
         $('#spinner_loader').show();
         
@@ -44,6 +45,7 @@ $(document).ready(function() {
             
             $('#spinner_loader').hide();
             $('#spinner_loader_img').removeClass('preloader__spinner');
+            $('.panel').css('opacity', '1');
         }, 1000);
 
         this.blur();
