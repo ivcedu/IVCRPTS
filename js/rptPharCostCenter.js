@@ -87,8 +87,8 @@ function getLoginInfo() {
     var login_name = sessionStorage.getItem('ss_rpts_loginName');
     $('#login_user').html(login_name + " <span class=\"caret\"></span>");
     
-    $('#pg_title').html("IVC Pharos");
-    $('#pg_sub_title').html("IVC Cost Center Printer and Copier Dashboard");
+    $('#pg_title').html("Pharos");
+    $('#pg_sub_title').html("IVC Printer and Copier Dashboard for Cost Center");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
