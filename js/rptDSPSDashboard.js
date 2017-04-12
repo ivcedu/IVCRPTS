@@ -152,7 +152,12 @@ function dsps_TabByMonthSection(start_date, end_date) {
 
 function drawBarChartJSByMonth() {
     var barOptions = {
-        scaleBeginAtZero : true,
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: { beginAtZero: true }
+            }]
+        },
         scaleShowGridLines : true,
         scaleGridLineColor : "rgba(0,0,0,0.05)",
         scaleGridLineWidth : 1,
@@ -207,7 +212,12 @@ function dsps_TabByWeekDaySection(start_date, end_date) {
 
 function drawBarChartJSByWeekDay() {
     var barOptions = {
-        scaleBeginAtZero : true,
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: { beginAtZero: true }
+            }]
+        },
         scaleShowGridLines : true,
         scaleGridLineColor : "rgba(0,0,0,0.05)",
         scaleGridLineWidth : 1,
