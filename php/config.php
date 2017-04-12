@@ -3,7 +3,7 @@
     // sql 2014 server (production DB)
 //    $dbDatabase = "IVCRPTS";
     // sql 2014 server (development DB)
-    $dbDatabase = "DEVRPTS";
+    $dbDatabase = "IVCRPTS";
     
     $dbUser = "ivcrpts";
     $dbPass = "~7QM#pd?X*";
