@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Password</label>
-                                    <input type="password" class="form-control" id="password">
+                                    <input type="password" class="form-control" autocomplete="off" id="password">
                                 </div>
                                 <button class="btn btn-primary btn-block btn-outline" id="btn_login">Login</button>
                                 <div class="text-center" id="logn_error">
