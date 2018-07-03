@@ -48,7 +48,7 @@ $(document).ready(function() {
             if(login_error === "") {
                 window.open('home.html', '_self');
             }
-            else if (login_error === "Invalid Username or Password") {
+            else if (login_error === "Invalid Username/Email or Password") {
                 $('#error_msg').html(login_error);
                 $('#logn_error').show();
                 this.blur();
