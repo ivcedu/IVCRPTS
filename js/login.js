@@ -71,7 +71,7 @@ function loginInfo() {
     var result = new Array();
     result = getLoginUserInfo("php/ldap_login_staff.php", username, password);    
     if (result.length === 0) {
-        return "Invalid Username or Password";
+        return "Invalid Username/Email or Password";
     }
     else {
         var name = objToString(result[0]);

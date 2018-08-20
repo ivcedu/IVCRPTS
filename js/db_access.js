@@ -573,3 +573,190 @@ function dsps_getNumStepNotCompleted(StartDate, EndDate) {
     });
     return result;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function upload_csvImportFile(file_data) {
+    var Result = false;
+    $.ajax({  
+        type: "POST",
+        url: "php/ireport_uploadCSVImportFile.php",  
+        data: file_data,
+        processData: false,  
+        contentType: false,  
+        async: false,
+        success:function(data) {
+            Result = JSON.parse(data);
+        }  
+    });
+    return Result;
+}
+
+function existCSVImportFilePrintDate(file_data) {
+    var Result = false;
+    $.ajax({  
+        type: "POST",
+        url: "php/ireport_existCSVImportFilePrintDate.php",  
+        data: file_data,
+        processData: false,  
+        contentType: false,  
+        async: false,
+        success:function(data) {
+            Result = JSON.parse(data);
+        }  
+    });
+    return Result;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Unidified DB reports ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function unified_getWorkdayCostCenterList() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getWorkdayCostCenterList.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getBeaconStartDate() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getBeaconStartDate.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getBeaconEndDate() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getBeaconEndDate.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getDashboardData(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDashboardData.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getDashboardDups(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDashboardDups.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getDashboardPharos(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDashboardPharos.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getDashboardBeacon(StartDate, EndDate) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDashboardBeacon.php",
+        data:{StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getAllDataTable(StartDate, EndDate, Param, Value) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDepartAllDataTable.php",
+        data:{StartDate:StartDate, EndDate:EndDate, Param:Param, Value:Value},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getDupsDataTable(StartDate, EndDate, Param, Value) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDepartDupsDataTable.php",
+        data:{StartDate:StartDate, EndDate:EndDate, Param:Param, Value:Value},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getPharosDataTable(StartDate, EndDate, Param, Value) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDepartPharosDataTable.php",
+        data:{StartDate:StartDate, EndDate:EndDate, Param:Param, Value:Value},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function unified_getBeaconDataTable(StartDate, EndDate, Param, Value) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/unified_getDepartBeaconDataTable.php",
+        data:{StartDate:StartDate, EndDate:EndDate, Param:Param, Value:Value},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}

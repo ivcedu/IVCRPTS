@@ -15,7 +15,7 @@ function dbSystemErrorHandling(str_msg) {
 }
 
 function sendEmailToDeveloper(str_msg) {
-    proc_sendEmail("donotreply@ivc.edu", "IVC Application System", "ykim160@ivc.edu", "Rich Kim", "", "", "Resource Form 2017: DB System Error", str_msg);
+    proc_sendEmail("donotreply@ivc.edu", "IVC Application System", "ykim160@ivc.edu", "Rich Kim", "", "", "IVC Reports: DB System Error", str_msg);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

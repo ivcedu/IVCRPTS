@@ -75,6 +75,10 @@ function isValidPhoneNumber(phoneNumber) {
     return pattern.test(phoneNumber);
 }
 
+function removeIllegalCharacters(str_value) {
+    return str_value.replace(/[#%|&;{}\<>()*?/$!'",:@+^]/g, "");
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getCurrentFirstDayOfMonth() {
     var cur_date = new Date();
@@ -110,11 +114,40 @@ function getFistDayOfMothWithSetMonth(change_month) {
     return mon + "/" + day + "/" + yrs;
 }
 
+function getCalculateMonthYear(change_month) {
+    var cur_date = new Date();  
+    cur_date.setDate(1);
+    cur_date.setMonth(cur_date.getMonth() + change_month);  
+    
+    var yrs = cur_date.getFullYear();
+    var mon = cur_date.getMonth() + 1;
+    
+    return mon + "-" + yrs;
+}
+
+function getFirstDateOfMonthYear(month_year) {
+    var arr = month_year.split("-");
+    
+    return arr[1] + "-" + arr[0] + "-01";
+}
+
+function getLastDateOfMonthYear(month_year) {
+    var arr = month_year.split("-");
+    var mon = arr[0];
+    var year = arr[1];
+    var dt_last_date = new Date(year, Number(mon), 0);
+    var str_last_date = dt_last_date.toISOString();
+    var index = Number(str_last_date.indexOf('T'));
+    
+    return str_last_date.slice(0, index);
+}
+
 function getToday() {
     var today = new Date();
     var day = today.getDate();
     var mon = today.getMonth()+1;
     var yr = today.getFullYear();
+    
     return mon + "/" + day + "/" + yr;
 }
 
@@ -184,6 +217,34 @@ function convertSQLDateTimeFormat(dt_date, dt_time) {
     }
     
     return yrs + "-" + mon + "-" + day  + " " + dt_time;
+}
+
+function getBeaconStartDate() {
+    var result = new Array(); 
+    result = unified_getBeaconStartDate();
+    
+    if (result.length === 1) {
+        var start_date = result[0]['PrintDate'];
+        var arr = start_date.split("-");
+        return arr[1] + "-" + arr[0];
+    }
+    else {
+        return getCalculateMonthYear(-1);
+    }
+}
+
+function getBeaconEndDate() {
+    var result = new Array(); 
+    result = unified_getBeaconEndDate();
+    
+    if (result.length === 1) {
+        var start_date = result[0]['PrintDate'];
+        var arr = start_date.split("-");
+        return arr[1] + "-" + arr[0];
+    }
+    else {
+        return getCalculateMonthYear(-1);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
