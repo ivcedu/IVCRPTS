@@ -33,45 +33,85 @@ $(document).ready(function() {
                                                         columnDefs:[{ className: "dt-center", targets: [0, 2, 3, 4, 5] }, { orderable: false, targets: 0 }], 
                                                         order: [[ 2, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'all_data_user'}, {extend: 'pdf', title: 'all_data_user'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv'}, 
+                                                                    {extend: 'excel', title: 'all_data_user'}, 
+                                                                    {extend: 'pdf', title: 'all_data_user'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartAllExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=User_Section&FileName=all_data_user"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
     table_beacon = $('#tbl_user_beacon').DataTable({ paging: false, bInfo: false, responsive: true,
                                                         columnDefs:[{ className: "dt-center", targets: [0, 2, 3, 4, 5] }, { orderable: false, targets: 0 }],  
                                                         order: [[ 2, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'beacon_user'}, {extend: 'pdf', title: 'beacon_user'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv'}, 
+                                                                    {extend: 'excel', title: 'beacon_user'}, 
+                                                                    {extend: 'pdf', title: 'beacon_user'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartBeaconExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=User_Section&FileName=beacon_user"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
     table_pharos = $('#tbl_user_pharos').DataTable({ paging: false, bInfo: false, responsive: true,
                                                         columnDefs:[{ className: "dt-center", targets: [0, 2, 3, 4, 5] }, { orderable: false, targets: 0 }], 
                                                         order: [[ 2, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'pharos_user'}, {extend: 'pdf', title: 'pharos_user'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv'}, 
+                                                                    {extend: 'excel', title: 'pharos_user'}, 
+                                                                    {extend: 'pdf', title: 'pharos_user'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartPharosExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=User_Section&FileName=pharos_user"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
     table_dups = $('#tbl_user_dups').DataTable({ paging: false, bInfo: false, responsive: true,
                                                         columnDefs:[{ className: "dt-center", targets: [0, 2, 3, 4, 5] }, { orderable: false, targets: 0 }], 
                                                         order: [[ 2, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'duplicating_user'}, {extend: 'pdf', title: 'duplicating_user'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv'}, 
+                                                                    {extend: 'excel', title: 'duplicating_user'}, 
+                                                                    {extend: 'pdf', title: 'duplicating_user'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartDupsExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=User_Section&FileName=duplicating_user"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
 
     // datepicker

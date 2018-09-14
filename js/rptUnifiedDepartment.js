@@ -33,45 +33,85 @@ $(document).ready(function() {
                                                         columnDefs:[{ className: "dt-center", targets: [0, 1, 3, 4, 5, 6] }, { orderable: false, targets: 0 }], 
                                                         order: [[ 3, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'all_data_department'}, {extend: 'pdf', title: 'all_data_department'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv', title: 'all_data_department'}, 
+                                                                    {extend: 'excel', title: 'all_data_department'}, 
+                                                                    {extend: 'pdf', title: 'all_data_department'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartAllExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=Department_Section&FileName=all_data_department"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
     table_beacon = $('#tbl_depart_beacon').DataTable({ paging: false, bInfo: false, responsive: true,
                                                         columnDefs:[{ className: "dt-center", targets: [0, 1, 3, 4, 5, 6] }, { orderable: false, targets: 0 }],  
                                                         order: [[ 3, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'beacon_department'}, {extend: 'pdf', title: 'beacon_department'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv', title: 'beacon_department'}, 
+                                                                    {extend: 'excel', title: 'beacon_department'}, 
+                                                                    {extend: 'pdf', title: 'beacon_department'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartBeaconExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=Department_Section&FileName=beacon_department"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
     table_pharos = $('#tbl_depart_pharos').DataTable({ paging: false, bInfo: false, responsive: true,
                                                         columnDefs:[{ className: "dt-center", targets: [0, 1, 3, 4, 5, 6] }, { orderable: false, targets: 0 }], 
                                                         order: [[ 3, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'pharos_department'}, {extend: 'pdf', title: 'pharos_department'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv', title: 'pharos_department'}, 
+                                                                    {extend: 'excel', title: 'pharos_department'}, 
+                                                                    {extend: 'pdf', title: 'pharos_department'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartPharosExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=Department_Section&FileName=pharos_department"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
     table_dups = $('#tbl_depart_dups').DataTable({ paging: false, bInfo: false, responsive: true,
                                                         columnDefs:[{ className: "dt-center", targets: [0, 1, 3, 4, 5, 6] }, { orderable: false, targets: 0 }], 
                                                         order: [[ 3, "desc" ]],
                                                         dom: '<"html5buttons"B>lTfgitp',
-                                                        buttons: [{ extend: 'copy'}, {extend: 'csv'}, {extend: 'excel', title: 'duplicating_department'}, {extend: 'pdf', title: 'duplicating_department'},
-                                                                  {extend: 'print', customize: function (win){
-                                                                          $(win.document.body).addClass('white-bg');
-                                                                          $(win.document.body).css('font-size', '10px');
-                                                                          $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
-                                                                  }]
+                                                        buttons: [{ extend: 'copy'}, 
+                                                                    {extend: 'csv', title: 'duplicating_department'}, 
+                                                                    {extend: 'excel', title: 'duplicating_department'}, 
+                                                                    {extend: 'pdf', title: 'duplicating_department'},
+                                                                    {extend: 'print', customize: function (win){
+                                                                        $(win.document.body).addClass('white-bg');
+                                                                        $(win.document.body).css('font-size', '10px');
+                                                                        $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');}
+                                                                    },
+                                                                    {text: 'Raw Data Export', action: function() {
+                                                                        var start_date = getFirstDateOfMonthYear($('#start_date').find('input').val());
+                                                                        var end_date = getLastDateOfMonthYear($('#end_date').find('input').val());
+                                                                        location.href = "php/unified_csvDepartDupsExcel.php?StartDate=" + start_date + "&EndDate=" + end_date + "&Param=Department_Section&FileName=duplicating_department"; 
+                                                                        return false;
+                                                                    }
+                                                                }]
                                                     });
 
     // datepicker
